@@ -73,7 +73,7 @@ class BikeRental:
             return None
         # Halt process if number of bikes is lower than the amount 
         # available at the store
-        if n_bikes < self.stock:
+        if n_bikes > self.stock:
             print(f'Sorry! We have currently {self.stock} bikes available to rent.')
             return None
         

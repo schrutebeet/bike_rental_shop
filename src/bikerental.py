@@ -58,7 +58,7 @@ class BikeRental:
         # Run the action if no issues found
         now = datetime.datetime.now()                      
         print(f"You have rented {n_bikes} bike(s) on weekly basis today at {now.hour} hours.")
-        print("You will be charged $60 for each day per bike.")
+        print("You will be charged $60 for each week per bike.")
         print("We hope that you enjoy our service.")
         self.stock -= n_bikes
         return now

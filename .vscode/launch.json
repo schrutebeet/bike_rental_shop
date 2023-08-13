@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run main",
+            "type": "python",
+            "request": "launch",
+            "program": "/Users/Ricky/Documents/Gitlab/bike_rental_shop/src/main.py",
+            "python": "/Users/Ricky/Documents/Gitlab/bike_rental_shop/bike_venv/Scripts/python.exe",
+            "env": {
+                "PYTHONPATH": "/home/schrute_beet/Github/bike_rental_shop/"
+            }
+        }
+    ]
+}

@@ -85,7 +85,7 @@ class BikeRental:
             - numOfBikes
         """
         # extract tuple
-        rentalTime, rentalBasis, numOfBikes = request
+        rentalBasis, rentalTime, numOfBikes = request
         # Issue bill only if all alements in tuple are non-null
         # and comply with their data types
         if isinstance(rentalTime, datetime.datetime) and isinstance(numOfBikes, int) and numOfBikes > 0 and rentalBasis in ('hourly', 'daily', 'weekly'):

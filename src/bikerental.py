@@ -114,19 +114,19 @@ class BikeRental:
             return None
             
     def calc_bill_hourly(self, rentalPeriod, numOfBikes):
-        bill = round((rentalPeriod.seconds / 3600) * self.HOURLY_RATE * numOfBikes , 2)
+        bill = (rentalPeriod.seconds / 3600) * self.HOURLY_RATE * numOfBikes , 2
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill
     
     def calc_bill_daily(self, rentalPeriod, numOfBikes):
-        bill = round(rentalPeriod.days * self.DAILY_RATE * numOfBikes , 2)
+        bill = rentalPeriod.days * self.DAILY_RATE * numOfBikes , 2
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill
 
     def calc_bill_weekly(self, rentalPeriod, numOfBikes):
-        bill = round((rentalPeriod.days / 7) * self.WEEKLY_RATE * numOfBikes , 2)
+        bill = (rentalPeriod.days / 7) * self.WEEKLY_RATE * numOfBikes , 2
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill
@@ -135,8 +135,8 @@ class BikeRental:
         if numOfBikes >= 4:
             print('You are eligible for a family discount! 30% will be deducted from your bill')
             print("Thanks for returning your bike. Hope you enjoyed our service!")
-            return round(bill * 0.7, 0.2)
+            return round(bill * 0.7, 2)
         else:
             print("Thanks for returning your bike. Hope you enjoyed our service!")
-            return bill
+            return round(bill, 2)
     

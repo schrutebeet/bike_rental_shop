@@ -20,7 +20,7 @@ class Customer:
             return self.bikes
         else:
             print('Please, enter correct number of bikes to be rented.')
-            return (0, 0)
+            return None
 
     def returnBike(self) -> tuple[str, datetime.datetime, int]:
         """

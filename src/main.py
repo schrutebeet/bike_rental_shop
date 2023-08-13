@@ -1,13 +1,19 @@
+import sys
 import time
-from src.bikerental import BikeRental
+from pathlib import Path
+
+# Set PYTHONPATH to bike_rental_shop/
+new_path = Path(__file__).resolve().parent.parent
+sys.path.append(str(new_path))
+
 from src.customer import Customer
-from datetime.datetime import now
+from src.bikerental import BikeRental
 
 def main():
     # Define variables
-    TYPE_OF_RENTAL = 'weekly'
-    INITIAL_SHOP_STOCK = 10
-    SLEEPING_TIME = 10
+    TYPE_OF_RENTAL = 'hourly'
+    INITIAL_SHOP_STOCK = 100
+    SLEEPING_TIME = 5
 
     # Create a customer instance
     customer = Customer()
@@ -22,10 +28,11 @@ def main():
     # Start rental period
     start_rental_period = bike_shop.rentBikes(customer.rentalBasis, bikes_requested)
     customer.rentalTime = start_rental_period
-    # Artificially sleep code for desired amount of seconds
-    time.sleep(SLEEPING_TIME)
-    # After waiting time, customer returns bike(s) to rental shop
-    bike_shop.returnBike(customer.returnBike())
+    if customer.rentalTime:
+        # Artificially sleep code for desired amount of seconds
+        time.sleep(SLEEPING_TIME)
+        # After waiting time, customer returns bike(s) to rental shop
+        bike_shop.returnBike(customer.returnBike())
     
 if __name__=="__main__":
     main()

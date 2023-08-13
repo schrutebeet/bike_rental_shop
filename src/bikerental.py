@@ -135,7 +135,7 @@ class BikeRental:
         if numOfBikes >= 4:
             print('You are eligible for a family discount! 30% will be deducted from your bill')
             print("Thanks for returning your bike. Hope you enjoyed our service!")
-            return bill * 0.7
+            return round(bill * 0.7, 0.2)
         else:
             print("Thanks for returning your bike. Hope you enjoyed our service!")
             return bill

@@ -2,7 +2,7 @@ import datetime
 
 class BikeRental:
 
-    HOURLY_DATE = 5
+    HOURLY_RATE = 5
     DAILY_RATE = 20
     WEEKLY_RATE = 60
 
@@ -31,14 +31,14 @@ class BikeRental:
         """
         Rents a bike on hourly basis to a customer.
         """
-        self._check_stock_availability(n_bikes)
+        availability = self._check_stock_availability(n_bikes)
         # Run the action if no issues found
-        now = datetime.datetime.now()
-        print(f"You have rented {n_bikes} bike(s) on hourly basis today at {now.hour} hours.")
-        print("You will be charged $5 for each hour per bike.")
-        print("We hope that you enjoy our service")
-        self.stock -= n_bikes
-        return now
+        if availability:
+            now = datetime.datetime.now()
+            print(f"You have rented {n_bikes} bike(s) on an hourly basis today at {now.hour:02d}:{now.minute:02d}:{now.second:02d}.")
+            print("You will be charged $5 for each hour per bike once you are back.")
+            self.stock -= n_bikes
+            return now
         
     def rentBikeOnDailyBasis(self, n_bikes) -> any:
         """
@@ -47,9 +47,8 @@ class BikeRental:
         self._check_stock_availability(n_bikes)
         # Run the action if no issues found
         now = datetime.datetime.now()                      
-        print(f"You have rented {n_bikes} bike(s) on daily basis today at {now.hour} hours.")
-        print("You will be charged $20 for each day per bike.")
-        print("We hope that you enjoy our service.")
+        print(f"You have rented {n_bikes} bike(s) on a daily basis today at {now.hour:02d}:{now.minute:02d}:{now.second:02d}.")
+        print("You will be charged $20 for each day per bike once you are back.")
         self.stock -= n_bikes
         return now
     
@@ -57,25 +56,25 @@ class BikeRental:
         self._check_stock_availability(n_bikes)
         # Run the action if no issues found
         now = datetime.datetime.now()                      
-        print(f"You have rented {n_bikes} bike(s) on weekly basis today at {now.hour} hours.")
-        print("You will be charged $60 for each week per bike.")
-        print("We hope that you enjoy our service.")
+        print(f"You have rented {n_bikes} bike(s) on a weekly basis today at {now.hour:02d}:{now.minute:02d}:{now.second:02d}.")
+        print("You will be charged $60 for each week per bike once you are back.")
         self.stock -= n_bikes
         return now
 
-    def _check_stock_availability(self, n_bikes):
+    def _check_stock_availability(self, n_bikes) -> bool:
         """
         Internal checking used for stopping renting process in case of error.
         """
         # Halt process if number of bikes is zero or negative
         if n_bikes <= 0:
             print('Number of bikes should be positive!')
-            return None
+            return False
         # Halt process if number of bikes is lower than the amount 
         # available at the store
         if n_bikes > self.stock:
             print(f'Sorry! We have currently {self.stock} bikes available to rent.')
-            return None
+            return False
+        return True
         
     def returnBike(self, request):
         """
@@ -94,9 +93,15 @@ class BikeRental:
             rentalPeriod = now - rentalTime
             # compute bill depending on rental basis
             func_name = 'calc_bill_' + rentalBasis
+            rent_option = {
+                        'calc_bill_hourly':self.calc_bill_hourly,
+                        'calc_bill_daily': self.calc_bill_daily,
+                        'calc_bill_weekly': self.calc_bill_weekly,
+                      }
             # Concatenate the function name with strings and call it
-            bill = func_name(rentalPeriod, numOfBikes)
-            print(f'The total amount to be paid is ${bill}')
+            bill = rent_option[func_name](rentalPeriod, numOfBikes)
+            print(f"Welcome back! Let me create a ticket for you. Now it's {now.hour:02d}:{now.minute:02d}:{now.second:02d} so " \
+                  f'the total amount to be paid is ${bill:.2f}')
         else:
             print('Input parameters must follow these rules:')
             print('    - rentalTime: datetime compliant with the "datetime" package')
@@ -105,7 +110,7 @@ class BikeRental:
             return None
             
     def calc_bill_hourly(self, rentalPeriod, numOfBikes):
-        bill = round((rentalPeriod.seconds / 3600) * self.HOUR_RATE * numOfBikes , 2)
+        bill = round((rentalPeriod.seconds / 3600) * self.HOURLY_RATE * numOfBikes , 2)
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill

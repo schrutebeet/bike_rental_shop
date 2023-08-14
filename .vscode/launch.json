@@ -5,10 +5,21 @@
             "name": "Run main",
             "type": "python",
             "request": "launch",
-            "program": "/Users/Ricky/Documents/Gitlab/bike_rental_shop/src/main.py",
-            "python": "/Users/Ricky/Documents/Gitlab/bike_rental_shop/bike_venv/Scripts/python.exe",
+            "program": "C:/Users/Ricky/Documents/Gitlab/bike_rental_shop/src/main.py",
+            "python": "C:/Users/Ricky/Documents/Gitlab/bike_rental_shop/bike_venv/Scripts/python.exe",
             "env": {
-                "PYTHONPATH": "/home/schrute_beet/Github/bike_rental_shop/"
+                "PYTHONPATH": "C:/Users/Ricky/Documents/Gitlab/bike_rental_shop"
+            }
+        },
+        {
+            "name": "Run tests",
+            "type": "python",
+            "request": "launch",
+            "program": "C:/Users/Ricky/Documents/Gitlab/bike_rental_shop/test/test_customer.py",
+            "python": "C:/Users/Ricky/Documents/Gitlab/bike_rental_shop/bike_venv/Scripts/python.exe",
+            "args": ["-m", "pytest", "/Users/Ricky/Documents/Gitlab/bike_rental_shop/test"],
+            "env": {
+                "PYTHONPATH": "C:/Users/Ricky/Documents/Gitlab/bike_rental_shop"
             }
         }
     ]

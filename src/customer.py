@@ -15,7 +15,7 @@ class Customer:
         Takes a request from the customer for the number of bikes.
         """
         bikes = input('How many bikes would you like to rent?: ')
-        if (bikes.isdigit()) and (float(bikes) % 1 == 0) and (int(bikes) >= 1):
+        if bikes.isdigit() and float(bikes) % 1 == 0 and int(bikes) >= 1:
             self.bikes = int(bikes)
             return self.bikes
         else:
@@ -26,7 +26,9 @@ class Customer:
         """
         Allows customer to return their bikes to the rental shop.
         """
-        if self.rentalTime and self.rentalBasis and self.bikes:
+        if isinstance(self.rentalTime, datetime.datetime) and \
+           isinstance(self.bikes, int) and self.bikes > 0 and \
+           self.rentalBasis in ('hourly', 'daily', 'weekly'):
             return (self.rentalBasis, self.rentalTime, self.bikes)
         else:
             return (0, 0, 0)

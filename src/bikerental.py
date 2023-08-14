@@ -92,7 +92,7 @@ class BikeRental:
         if isinstance(rentalTime, datetime.datetime) and isinstance(numOfBikes, int) and numOfBikes > 0 and rentalBasis in ('hourly', 'daily', 'weekly'):
             self.stock += numOfBikes
             now = datetime.datetime.now()
-            rentalPeriod = now - rentalTime
+            rentalPeriod = (now - rentalTime)
             # compute bill depending on rental basis
             func_name = 'calc_bill_' + rentalBasis
             rent_option = {
@@ -114,19 +114,19 @@ class BikeRental:
             return None
             
     def calc_bill_hourly(self, rentalPeriod, numOfBikes):
-        bill = (rentalPeriod.seconds / 3600) * self.HOURLY_RATE * numOfBikes , 2
+        bill = (rentalPeriod.total_seconds() / 3600) * self.HOURLY_RATE * numOfBikes
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill
     
     def calc_bill_daily(self, rentalPeriod, numOfBikes):
-        bill = rentalPeriod.days * self.DAILY_RATE * numOfBikes , 2
+        bill = (rentalPeriod.total_seconds() / (3600*24)) * self.DAILY_RATE * numOfBikes
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill
 
     def calc_bill_weekly(self, rentalPeriod, numOfBikes):
-        bill = (rentalPeriod.days / 7) * self.WEEKLY_RATE * numOfBikes , 2
+        bill = (rentalPeriod.total_seconds() / (3600*24*7)) * self.WEEKLY_RATE * numOfBikes 
         # check for family discount
         bill = self._family_discount(numOfBikes, bill)
         return bill
